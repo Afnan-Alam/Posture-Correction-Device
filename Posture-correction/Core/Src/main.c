@@ -113,7 +113,7 @@ int main(void)
 
 
 
-
+      int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,13 +123,13 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  int counter = 0;
+
 	  float read_Val = MPU6050_read();
 
 	      if (read_Val > 20.0)
 	      {
 	          counter++;
-	          if (counter >= 1)
+	          if (counter >= 50)
 	          {
 	              HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, GPIO_PIN_SET); // Set HIGH
 	          }
@@ -141,6 +141,7 @@ int main(void)
 	      }
 
 	      HAL_Delay(100); // Check every second
+	      printf("\nCounter: %d \n", counter);
   }
   /* USER CODE END 3 */
 }
