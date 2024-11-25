@@ -59,20 +59,21 @@ float MPU6050_read(){
 	float	Ay = (float)Accel_Y_RAW/16384.0;
 	float	Az = (float)Accel_Z_RAW/16384.0;
 
-//			printf("\nX axis acceleration: %f \n", Ax);
-//			printf("\nY axis acceleration: %f \n", Ay);
-//			printf("\nZ axis acceleration: %f \n", Az);
+//	printf("\nX axis acceleration: %f \n", Ax);
+//	printf("\nY axis acceleration: %f \n", Ay);
+//	printf("\nZ axis acceleration: %f \n", Az);
+	
+//	float xzMag = sqrt(Ax*Ax + Az*Az);
+//	float angle_radian = atan2(xzMag, Ay);
+//	float angle_degree = -angle_radian * (180.0/M_PI);
 
-			float  xyMag = sqrt(Ax*Ax + Ay*Ay);
+	// CHANGE FORMULA TO DETECT ANGLE ON OHTER PLANE
+	float  xyMag = sqrt(Ax*Ax + Ay*Ay);
+	float angle_radian = atan2(xyMag, Az);
+	float angle_degree = -angle_radian* (180.0/M_PI) + 90;
 
-				float angle_radian = atan2(xyMag, Az);
-
-				float angle_degree = -angle_radian* (180.0/M_PI) + 90;
-
-//			double degree = calcTilt(Ax, Ay, Az);
-
-			printf("\nDegree: %f \n", angle_degree);
-			return angle_degree;
+	printf("\nDegree: %f \n", angle_degree);
+	return angle_degree;
 
 //	HAL_I2C_Mem_Read(&hi2c1, (DEVICE_ADDRESS <<1) +0, 0x3b, 1, dataX, 2, 100);
 //
